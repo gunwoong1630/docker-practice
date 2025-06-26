@@ -35,6 +35,7 @@ jobs:
   build-image:
     name: 도커 이미지 빌드
     runs-on: ubuntu-latest
+    needs: tagging
 
     permissions:
       contents: read
@@ -62,7 +63,6 @@ jobs:
             type=sha
             type=raw,value=${{needs.tagging.outputs.tag_name}}
             type=raw,value=latest
-
       - name: Build and push image
         uses: docker/build-push-action@v6
         with:
